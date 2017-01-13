@@ -102,6 +102,7 @@ int main() {
     print_string(ls);
 
     del(ls, 6);
+    del(ls, 6);
     print_string(ls);
     del_all(ls);
     return 0;
