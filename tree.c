@@ -11,18 +11,23 @@ typedef struct tnode {
 } NODE;
 
 void insert(NODE **tree, valType value) {
-    NODE *temp = NULL;     
-    if (!(*tree)) {
+    NODE *temp;// = NULL;
+    printf("calling insert on %d\n", value);
+    if ((*tree) == NULL) {
         temp = (NODE *)malloc(sizeof(NODE));
-        temp->left = temp->right = NULL;
+        temp->left = NULL;
+        temp->right = NULL;
         temp->value = value;
         *tree = temp;
+        printf("inserted %d\n", value);
         return;
     }
 
     if (value < (*tree)->value) {
+        printf("going left, compare %d\n",  value);
         insert(&(*tree)->left, value);
-    } else if (value > (*tree)->value) {
+    } else {//if (value > tree->value) {
+        printf("going right, compare %d\n",  value);
         insert(&(*tree)->right, value);
     }
 }
@@ -36,9 +41,8 @@ void delete_all(NODE *tree) {
 }
 
 
-/* need delete for single node. I just remembered it's horrible */
+/* maybe add delete later */
 
-// NEED: postorder, 
 void preorder(NODE *tree) {
     if (tree) {
         printf("%d\n",tree->value);
@@ -64,5 +68,32 @@ void postorder(NODE *tree) {
 }
 
 int main() {
+    NODE *tree = (NODE *)malloc(sizeof(NODE));
+    printf("0");
+    tree->value = 10;
+    printf("1");
+    insert(&tree, 6);
+    printf("2");
+    insert(&tree, 12);
+    printf("3");
+    insert(&tree, 2);
+    printf("4");
+    insert(&tree, 8);
+    printf("5");
+    insert(&tree, 0);
+    printf("6");
+    insert(&tree, 4);
+    printf("7");
+    insert(&tree, 7);
+    printf("8");
+    insert(&tree, 9);
+    printf("9\n");
+    
+    preorder(tree);
+    printf("====================\n");
+    inorder(tree);
+    printf("====================\n");
+    postorder(tree);
+    delete_all(tree);
     return 0;
 }
