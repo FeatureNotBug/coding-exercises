@@ -9,7 +9,6 @@ typedef struct pNODE_LS {
 
 typedef struct pNODE {
     //int value; <- don't need to use it for this
-    int distance;
     struct pNODE_LS *neighbors;        // will do neighbors as a linked list
     int discovered;
     int id;
@@ -20,6 +19,7 @@ static struct pNODE *pA;
 static struct pNODE *pB;
 static struct pNODE *pC;
 static struct pNODE *pD;
+static struct pNODE *pE;
 
 void addEdge(GRAPH_NODE *pNode1, GRAPH_NODE *pNode2) {
     LL_NODE *llnode1 = (LL_NODE *) malloc(sizeof(LL_NODE));
@@ -67,7 +67,6 @@ void dfs(GRAPH_NODE *pNode) {
 int main() {
     // initialize test graph
     pRoot = (GRAPH_NODE *) malloc(sizeof(GRAPH_NODE));
-    pRoot->distance = 0;
     pRoot->neighbors = (LL_NODE *)malloc(sizeof(LL_NODE));
     pRoot->neighbors->next = NULL;
 
@@ -75,6 +74,7 @@ int main() {
     pB = (GRAPH_NODE *) malloc(sizeof(GRAPH_NODE));
     pC = (GRAPH_NODE *) malloc(sizeof(GRAPH_NODE));
     pD = (GRAPH_NODE *) malloc(sizeof(GRAPH_NODE));
+    pE = (GRAPH_NODE *) malloc(sizeof(GRAPH_NODE));
 
     pA->neighbors = (LL_NODE *) malloc(sizeof(LL_NODE));
     pA->neighbors->next = NULL;
@@ -84,29 +84,29 @@ int main() {
     pC->neighbors->next = NULL;
     pD->neighbors = (LL_NODE *) malloc(sizeof(LL_NODE));
     pD->neighbors->next = NULL;
-
-    pA->distance = -1;
-    pB->distance = -1;
-    pC->distance = -1;
-    pD->distance = -1;
+    pE->neighbors = (LL_NODE *) malloc(sizeof(LL_NODE));
+    pE->neighbors->next = NULL;
 
     pRoot->discovered = 0;
     pA->discovered = 0;
     pB->discovered = 0;
     pC->discovered = 0;
     pD->discovered = 0;
+    pE->discovered = 0;
 
     pRoot->id = 0;
     pA->id = 1;
     pB->id = 2;
     pC->id = 3;
     pD->id = 4;
+    pE->id = 5;
 
     addEdge(pRoot, pA);
     addEdge(pRoot, pB);
     addEdge(pRoot, pC);
     addEdge(pA, pB);
     addEdge(pC, pD);
+    addEdge(pA, pE);
 
     LL_NODE *blah = pRoot->neighbors;
     while (blah!= NULL) {
@@ -130,6 +130,7 @@ int main() {
     freeNode(pB);
     freeNode(pC);
     freeNode(pD);
+    freeNode(pE);
     
     return 0;
 }
